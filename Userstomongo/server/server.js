@@ -1,10 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const router = require("../server/routes/routes");
 
+const router = require("../server/routes/routes");
+const cookieParser = require("cookie-parser");
 const app = express();
 app.use(express.json());
 app.use(router);
+// setting up cookie parser as middleware
+app.use(cookieParser());
 
 mongoose.connection.once("open", () => {
   console.log("server connected");
@@ -25,3 +28,5 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+module.exports = app;
